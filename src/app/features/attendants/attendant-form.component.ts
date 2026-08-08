@@ -25,7 +25,7 @@ import { AttendantService } from '../../core/services/attendant.service';
           {{ editAttendant ? 'Edit Attendant Details' : 'Add Care Attendant' }}
         </h2>
         <p class="text-ink/80 text-sm mb-6">
-          Record contact and service information for trusted home-visit nurses, doctors, or care attendants.
+          Record service information for trusted home-visit nurses, doctors, or care attendants.
         </p>
 
         @if (errorMessage()) {
@@ -66,30 +66,17 @@ import { AttendantService } from '../../core/services/attendant.service';
             </div>
 
             <div>
-              <label for="contact_number" class="block text-sm font-semibold text-ink mb-1">Contact Number *</label>
+              <label for="area" class="block text-sm font-semibold text-ink mb-1">Locality / Area *</label>
               <input 
-                id="contact_number"
+                id="area"
                 type="text" 
-                [(ngModel)]="form.contact_number" 
-                name="contact_number"
-                placeholder="e.g. +92 300 1234567"
+                [(ngModel)]="form.area" 
+                name="area"
+                placeholder="e.g. Model Town & Gulberg"
                 required
                 class="w-full tap-target px-4 py-3 bg-white border border-ink/20 rounded-xl text-ink focus:ring-2 focus:ring-companion/40 outline-none"
               />
             </div>
-          </div>
-
-          <div>
-            <label for="area" class="block text-sm font-semibold text-ink mb-1">Locality / Area *</label>
-            <input 
-              id="area"
-              type="text" 
-              [(ngModel)]="form.area" 
-              name="area"
-              placeholder="e.g. Model Town & Gulberg"
-              required
-              class="w-full tap-target px-4 py-3 bg-white border border-ink/20 rounded-xl text-ink focus:ring-2 focus:ring-companion/40 outline-none"
-            />
           </div>
 
           <div>
@@ -148,7 +135,6 @@ export class AttendantFormComponent {
     name: '',
     service_type: 'attendant',
     area: '',
-    contact_number: '',
     rate_info: '',
     notes: ''
   };
@@ -162,7 +148,6 @@ export class AttendantFormComponent {
         name: this.editAttendant.name,
         service_type: this.editAttendant.service_type,
         area: this.editAttendant.area,
-        contact_number: this.editAttendant.contact_number,
         rate_info: this.editAttendant.rate_info || '',
         notes: this.editAttendant.notes || ''
       };
@@ -170,8 +155,8 @@ export class AttendantFormComponent {
   }
 
   async save() {
-    if (!this.form.name || !this.form.area || !this.form.contact_number) {
-      this.errorMessage.set('Please fill in the required fields (Name, Area, Contact Number).');
+    if (!this.form.name || !this.form.area) {
+      this.errorMessage.set('Please fill in the required fields (Name and Area).');
       return;
     }
 

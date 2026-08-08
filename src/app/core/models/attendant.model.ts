@@ -5,9 +5,9 @@ export interface Attendant {
   name: string;
   service_type: ServiceType;
   area: string;
-  contact_number: string;
-  rate_info: string;
-  notes: string;
+  contact_number?: string;
+  rate_info?: string;
+  notes?: string;
   created_at?: string;
   created_by?: string;
 }

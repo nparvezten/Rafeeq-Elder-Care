@@ -8,7 +8,6 @@ const INITIAL_ATTENDANTS: Attendant[] = [
     name: 'Rashid Khan',
     service_type: 'attendant',
     area: 'Gulberg & Model Town',
-    contact_number: '+92 300 5550192',
     rate_info: '₹800 / 12hr shift',
     notes: 'Punctual, experienced with mobility assistance, wheelchair transfers, and gentle night watch.',
     created_at: new Date().toISOString()
@@ -18,7 +17,6 @@ const INITIAL_ATTENDANTS: Attendant[] = [
     name: 'Dr. Sarah Ahmed',
     service_type: 'doctor',
     area: 'Defence / Johar Town',
-    contact_number: '+92 321 4440811',
     rate_info: '₹2,500 / home visit',
     notes: 'Geriatric general physician. Available for routine weekly checkups and vitals review.',
     created_at: new Date().toISOString()
@@ -28,7 +26,6 @@ const INITIAL_ATTENDANTS: Attendant[] = [
     name: 'Parveen Bibi',
     service_type: 'nurse',
     area: 'Faisal Town & Garden Town',
-    contact_number: '+92 333 7771234',
     rate_info: '₹1,200 / day shift',
     notes: 'Certified diploma nurse. Skilled in IV administration, wound care, and blood pressure logging.',
     created_at: new Date().toISOString()
@@ -59,7 +56,7 @@ export class AttendantService {
       const matchesQuery = !query || 
         item.name.toLowerCase().includes(query) || 
         item.area.toLowerCase().includes(query) ||
-        item.notes.toLowerCase().includes(query);
+        (item.notes && item.notes.toLowerCase().includes(query));
 
       return matchesType && matchesQuery;
     });
@@ -80,7 +77,7 @@ export class AttendantService {
         .select('*')
         .order('created_at', { ascending: false });
 
-      if (!error && data && data.length > 0) {
+      if (!error && data) {
         this.attendants.set(data as Attendant[]);
       }
     } catch (err) {
@@ -110,7 +107,6 @@ export class AttendantService {
               name: attendant.name,
               service_type: attendant.service_type,
               area: attendant.area,
-              contact_number: attendant.contact_number,
               rate_info: attendant.rate_info,
               notes: attendant.notes,
               created_by: user?.id
@@ -134,7 +130,6 @@ export class AttendantService {
       }
     }
 
-    // Direct local state update for zero-config run
     this.attendants.update(current => [newRecord, ...current]);
     return { error: null };
   }
@@ -150,7 +145,6 @@ export class AttendantService {
             name: attendant.name,
             service_type: attendant.service_type,
             area: attendant.area,
-            contact_number: attendant.contact_number,
             rate_info: attendant.rate_info,
             notes: attendant.notes
           })
@@ -164,7 +158,6 @@ export class AttendantService {
       }
     }
 
-    // Update in-memory state
     this.attendants.update(current => 
       current.map(item => item.id === id ? { ...item, ...attendant } : item)
     );

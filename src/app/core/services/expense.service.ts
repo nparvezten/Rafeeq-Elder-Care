@@ -22,16 +22,6 @@ const INITIAL_EXPENSES: Expense[] = [
     paid_by: 'Tariq',
     split_between: ['Fatima', 'Tariq', 'Zainab'],
     created_at: new Date().toISOString()
-  },
-  {
-    id: 'exp-3',
-    date: new Date(Date.now() - 86400000 * 1).toISOString().split('T')[0],
-    description: 'Weekly Grocery & Fresh Soup Supplies',
-    category: 'Food & Nutrition',
-    amount: 1800,
-    paid_by: 'Zainab',
-    split_between: ['Fatima', 'Tariq', 'Zainab'],
-    created_at: new Date().toISOString()
   }
 ];
 
@@ -142,13 +132,13 @@ export class ExpenseService {
       const { data, error } = await supabase
         .from('expenses')
         .select('*')
-        .order('date', { ascending: false });
+        .order('created_at', { ascending: false });
 
-      if (!error && data && data.length > 0) {
+      if (!error && data) {
         this.expenses.set(data as Expense[]);
       }
     } catch (err) {
-      console.warn('Supabase offline or schema pending, using demo initial data:', err);
+      console.warn('Supabase offline, using initial state:', err);
     } finally {
       this.isLoading.set(false);
     }
@@ -183,7 +173,7 @@ export class ExpenseService {
           .select();
 
         if (error) {
-          console.warn('Supabase table missing or offline. Falling back to local state:', error.message);
+          console.warn('Supabase insert fallback:', error.message);
           this.expenses.update(current => [newRecord, ...current]);
           return { error: null };
         }
@@ -192,13 +182,12 @@ export class ExpenseService {
           return { error: null };
         }
       } catch (err) {
-        console.warn('Supabase exception. Falling back to local state:', err);
+        console.warn('Supabase exception fallback:', err);
         this.expenses.update(current => [newRecord, ...current]);
         return { error: null };
       }
     }
 
-    // Direct local state update for zero-config run
     this.expenses.update(current => [newRecord, ...current]);
     return { error: null };
   }

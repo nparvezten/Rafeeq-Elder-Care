@@ -10,7 +10,7 @@ CREATE TABLE IF NOT EXISTS public.attendants (
   name TEXT NOT NULL,
   service_type TEXT NOT NULL CHECK (service_type IN ('nurse', 'doctor', 'attendant', 'other')),
   area TEXT NOT NULL,
-  contact_number TEXT NOT NULL,
+  contact_number TEXT,
   rate_info TEXT,
   notes TEXT,
   created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
@@ -39,66 +39,44 @@ ALTER TABLE public.expenses ENABLE ROW LEVEL SECURITY;
 
 -- --------------------------------------------------------------------
 -- RLS Policies for Attendants Directory
--- Plain English Rule: Authenticated family members can view, add, and update attendants.
+-- Plain English Rule: Anyone (anon and authenticated) can view attendant directory entries.
 -- --------------------------------------------------------------------
 
+DROP POLICY IF EXISTS "Allow public read access to attendants" ON public.attendants;
 DROP POLICY IF EXISTS "Allow authenticated users to read attendants" ON public.attendants;
-CREATE POLICY "Allow authenticated users to read attendants"
-  ON public.attendants
-  FOR SELECT
-  TO authenticated
-  USING (true);
+CREATE POLICY "Allow public read access to attendants"
+  ON public.attendants FOR SELECT USING (true);
 
 DROP POLICY IF EXISTS "Allow authenticated users to insert attendants" ON public.attendants;
 CREATE POLICY "Allow authenticated users to insert attendants"
-  ON public.attendants
-  FOR INSERT
-  TO authenticated
-  WITH CHECK (auth.uid() = created_by OR created_by IS NULL);
+  ON public.attendants FOR INSERT TO authenticated WITH CHECK (auth.uid() = created_by OR created_by IS NULL);
 
 DROP POLICY IF EXISTS "Allow authenticated users to update attendants" ON public.attendants;
 CREATE POLICY "Allow authenticated users to update attendants"
-  ON public.attendants
-  FOR UPDATE
-  TO authenticated
-  USING (auth.role() = 'authenticated');
+  ON public.attendants FOR UPDATE TO authenticated USING (auth.role() = 'authenticated');
 
 DROP POLICY IF EXISTS "Allow authenticated users to delete attendants" ON public.attendants;
 CREATE POLICY "Allow authenticated users to delete attendants"
-  ON public.attendants
-  FOR DELETE
-  TO authenticated
-  USING (auth.role() = 'authenticated');
+  ON public.attendants FOR DELETE TO authenticated USING (auth.role() = 'authenticated');
 
 -- --------------------------------------------------------------------
 -- RLS Policies for Shared Expenses
--- Plain English Rule: Authenticated family members can view, add, and update expenses.
+-- Plain English Rule: Anyone (anon and authenticated) can view care expenses.
 -- --------------------------------------------------------------------
 
+DROP POLICY IF EXISTS "Allow public read access to expenses" ON public.expenses;
 DROP POLICY IF EXISTS "Allow authenticated users to read expenses" ON public.expenses;
-CREATE POLICY "Allow authenticated users to read expenses"
-  ON public.expenses
-  FOR SELECT
-  TO authenticated
-  USING (true);
+CREATE POLICY "Allow public read access to expenses"
+  ON public.expenses FOR SELECT USING (true);
 
 DROP POLICY IF EXISTS "Allow authenticated users to insert expenses" ON public.expenses;
 CREATE POLICY "Allow authenticated users to insert expenses"
-  ON public.expenses
-  FOR INSERT
-  TO authenticated
-  WITH CHECK (auth.uid() = created_by OR created_by IS NULL);
+  ON public.expenses FOR INSERT TO authenticated WITH CHECK (auth.uid() = created_by OR created_by IS NULL);
 
 DROP POLICY IF EXISTS "Allow authenticated users to update expenses" ON public.expenses;
 CREATE POLICY "Allow authenticated users to update expenses"
-  ON public.expenses
-  FOR UPDATE
-  TO authenticated
-  USING (auth.role() = 'authenticated');
+  ON public.expenses FOR UPDATE TO authenticated USING (auth.role() = 'authenticated');
 
 DROP POLICY IF EXISTS "Allow authenticated users to delete expenses" ON public.expenses;
 CREATE POLICY "Allow authenticated users to delete expenses"
-  ON public.expenses
-  FOR DELETE
-  TO authenticated
-  USING (auth.role() = 'authenticated');
+  ON public.expenses FOR DELETE TO authenticated USING (auth.role() = 'authenticated');
