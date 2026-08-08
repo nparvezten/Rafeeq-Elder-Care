@@ -17,6 +17,16 @@ export const routes: Routes = [
       import('./features/expenses/expense-list.component').then(m => m.ExpenseListComponent)
   },
   {
+    path: 'respite',
+    loadComponent: () => 
+      import('./features/respite/respite-list.component').then(m => m.RespiteListComponent)
+  },
+  {
+    path: 'diagnostics',
+    loadComponent: () => 
+      import('./features/diagnostics/diagnostic-list.component').then(m => m.DiagnosticListComponent)
+  },
+  {
     path: '**',
     redirectTo: 'attendants'
   }

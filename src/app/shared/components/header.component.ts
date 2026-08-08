@@ -11,7 +11,7 @@ import { AuthModalComponent } from '../../features/auth/auth-modal.component';
   imports: [CommonModule, RouterLink, RouterLinkActive, LogomarkComponent, AuthModalComponent],
   template: `
     <header class="bg-canvas border-b border-ink/10 sticky top-0 z-40 backdrop-blur-md bg-canvas/90">
-      <div class="max-w-4xl mx-auto px-4 py-3 flex items-center justify-between gap-4">
+      <div class="max-w-5xl mx-auto px-4 py-3 flex items-center justify-between gap-4">
         
         <!-- App Brand Header -->
         <a routerLink="/" class="flex items-center gap-2.5 group tap-target py-1">
@@ -50,29 +50,53 @@ import { AuthModalComponent } from '../../features/auth/auth-modal.component';
       </div>
 
       <!-- Navigation Tabs -->
-      <nav class="max-w-4xl mx-auto px-4 flex border-t border-ink/5 overflow-x-auto">
+      <nav class="max-w-5xl mx-auto px-4 flex border-t border-ink/5 overflow-x-auto">
         <a 
           routerLink="/attendants" 
           routerLinkActive="border-companion text-companion font-bold"
           [routerLinkActiveOptions]="{ exact: false }"
-          class="tap-target px-5 py-3 border-b-2 border-transparent text-ink/70 hover:text-ink text-base font-semibold transition-all flex items-center gap-2 whitespace-nowrap"
+          class="tap-target px-4 sm:px-5 py-3 border-b-2 border-transparent text-ink/70 hover:text-ink text-sm sm:text-base font-semibold transition-all flex items-center gap-2 whitespace-nowrap"
         >
-          <svg class="w-5 h-5 opacity-80" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg class="w-4 h-4 sm:w-5 sm:h-5 opacity-80" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
           </svg>
-          Attendant Directory
+          Attendants
         </a>
 
         <a 
           routerLink="/expenses" 
           routerLinkActive="border-companion text-companion font-bold"
           [routerLinkActiveOptions]="{ exact: false }"
-          class="tap-target px-5 py-3 border-b-2 border-transparent text-ink/70 hover:text-ink text-base font-semibold transition-all flex items-center gap-2 whitespace-nowrap"
+          class="tap-target px-4 sm:px-5 py-3 border-b-2 border-transparent text-ink/70 hover:text-ink text-sm sm:text-base font-semibold transition-all flex items-center gap-2 whitespace-nowrap"
         >
-          <svg class="w-5 h-5 opacity-80" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg class="w-4 h-4 sm:w-5 sm:h-5 opacity-80" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 14l6-6m-5.5.5h.01m4.99 5h.01M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h14a2 2 0 012 2v14a2 2 0 01-2 2z"/>
           </svg>
-          Shared Expense Tracker
+          Expense Tracker
+        </a>
+
+        <a 
+          routerLink="/respite" 
+          routerLinkActive="border-companion text-companion font-bold"
+          [routerLinkActiveOptions]="{ exact: false }"
+          class="tap-target px-4 sm:px-5 py-3 border-b-2 border-transparent text-ink/70 hover:text-ink text-sm sm:text-base font-semibold transition-all flex items-center gap-2 whitespace-nowrap"
+        >
+          <svg class="w-4 h-4 sm:w-5 sm:h-5 opacity-80" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+          </svg>
+          Respite Board
+        </a>
+
+        <a 
+          routerLink="/diagnostics" 
+          routerLinkActive="border-companion text-companion font-bold"
+          [routerLinkActiveOptions]="{ exact: false }"
+          class="tap-target px-4 sm:px-5 py-3 border-b-2 border-transparent text-ink/70 hover:text-ink text-sm sm:text-base font-semibold transition-all flex items-center gap-2 whitespace-nowrap"
+        >
+          <svg class="w-4 h-4 sm:w-5 sm:h-5 opacity-80" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5m0 0h4m-4 0V11m0 0V7m0 4h4m-4 0H7"/>
+          </svg>
+          Diagnostic Directory
         </a>
       </nav>
     </header>
