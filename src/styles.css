@@ -1,0 +1,31 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    background-color: #FAF1E4;
+    color: #33261F;
+    font-family: 'Source Sans 3', 'Inter', system-ui, sans-serif;
+    font-size: 17px;
+    min-height: 100vh;
+  }
+
+  h1, h2, h3, .font-serif-header {
+    font-family: 'Fraunces', Georgia, serif;
+  }
+}
+
+/* Custom hairline borders and soft shadow styles for journal page aesthetic */
+.journal-card {
+  background-color: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(51, 38, 31, 0.12);
+  border-radius: 18px;
+  box-shadow: 0 4px 20px -2px rgba(51, 38, 31, 0.04);
+}
+
+/* Touch-friendly target helper */
+.tap-target {
+  min-height: 48px;
+  min-width: 48px;
+}
