@@ -3,8 +3,13 @@ import { Routes } from '@angular/router';
 export const routes: Routes = [
   {
     path: '',
-    redirectTo: 'attendants',
+    redirectTo: 'wisdom',
     pathMatch: 'full'
+  },
+  {
+    path: 'wisdom',
+    loadComponent: () => 
+      import('./features/wisdom/wisdom-carousel.component').then(m => m.WisdomCarouselComponent)
   },
   {
     path: 'attendants',
@@ -27,7 +32,22 @@ export const routes: Routes = [
       import('./features/diagnostics/diagnostic-list.component').then(m => m.DiagnosticListComponent)
   },
   {
+    path: 'helplines',
+    loadComponent: () => 
+      import('./features/helplines/helpline-list.component').then(m => m.HelplineListComponent)
+  },
+  {
+    path: 'gratitude',
+    loadComponent: () => 
+      import('./features/gratitude/gratitude-view.component').then(m => m.GratitudeViewComponent)
+  },
+  {
+    path: 'settings',
+    loadComponent: () => 
+      import('./features/settings/notification-settings.component').then(m => m.NotificationSettingsComponent)
+  },
+  {
     path: '**',
-    redirectTo: 'attendants'
+    redirectTo: 'wisdom'
   }
 ];

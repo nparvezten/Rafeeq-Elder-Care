@@ -1,0 +1,22 @@
+{
+  "note": "Paraphrased in plain English, not verbatim scripture translations (avoids copyright issues with specific translations, and keeps tone consistent). Please review with someone knowledgeable in each tradition before publishing — this is a respectful starting draft, not a final authoritative text.",
+  "categories": ["islam", "christianity", "hinduism", "buddhism", "universal"],
+  "quotes": [
+    { "id": "isl-1", "category": "islam", "text": "The Quran places kindness to parents immediately after devotion to God, and asks that we never speak to them more harshly than a sigh.", "source": "Quran 17:23 (paraphrase)" },
+    { "id": "isl-2", "category": "islam", "text": "A well-known hadith holds that paradise lies at the feet of mothers — a reminder of how highly a mother's care is honored.", "source": "Hadith tradition (paraphrase)" },
+    { "id": "isl-3", "category": "islam", "text": "The Quran asks believers to lower 'the wing of humility' toward aging parents, and to pray for the mercy they once showed us as children.", "source": "Quran 17:24 (paraphrase)" },
+    { "id": "chr-1", "category": "christianity", "text": "Honoring your father and mother is the first of the Ten Commandments paired with a promise — that your days may be long.", "source": "Exodus 20:12 (paraphrase)" },
+    { "id": "chr-2", "category": "christianity", "text": "Caring for one's own family, especially aging parents, is described in the New Testament as a direct mark of genuine faith.", "source": "1 Timothy 5:4, 5:8 (paraphrase)" },
+    { "id": "chr-3", "category": "christianity", "text": "Even from the cross, Jesus is described making sure his own mother would be cared for — a quiet model of steady filial duty.", "source": "John 19:26-27 (paraphrase)" },
+    { "id": "hin-1", "category": "hinduism", "text": "'Matru Devo Bhava, Pitru Devo Bhava' — an ancient teaching to treat your mother and father as living forms of the divine.", "source": "Taittiriya Upanishad (paraphrase)" },
+    { "id": "hin-2", "category": "hinduism", "text": "In the Ramayana, Rama's devotion to honoring his father's word is held up as an ideal of filial duty.", "source": "Ramayana (paraphrase)" },
+    { "id": "hin-3", "category": "hinduism", "text": "Seva — selfless service to parents and elders — is considered one of the most direct paths to spiritual merit in Hindu tradition.", "source": "Hindu tradition (paraphrase)" },
+    { "id": "bud-1", "category": "buddhism", "text": "The Buddha taught that even carrying one's parents on each shoulder for a hundred years would not fully repay the debt of their care.", "source": "Anguttara Nikaya (paraphrase)" },
+    { "id": "bud-2", "category": "buddhism", "text": "Caring for aging parents is framed in Buddhist teaching as compassion (karuna) practiced closest to home.", "source": "Buddhist teaching (paraphrase)" },
+    { "id": "bud-3", "category": "buddhism", "text": "Supporting parents in their old age is named directly among a child's duties in the Buddha's teaching on family life.", "source": "Sigalovada Sutta (paraphrase)" },
+    { "id": "uni-1", "category": "universal", "text": "Reverence for elders appears in nearly every human culture studied — not a rule imposed from outside, but something close to a universal instinct.", "source": "Universal / secular" },
+    { "id": "uni-2", "category": "universal", "text": "Caring for a parent who once cared for you is sometimes described simply as completing a circle — not a debt, but a continuation.", "source": "Universal / secular" },
+    { "id": "uni-3", "category": "universal", "text": "Caregiving is exhausting, and it's also one of the most consistently reported sources of deep meaning people describe in their lives.", "source": "Universal / secular" },
+    { "id": "uni-4", "category": "universal", "text": "You don't have to believe in anything beyond kindness itself to know that showing up for someone who once showed up for you matters.", "source": "Universal / secular" }
+  ]
+}
