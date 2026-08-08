@@ -52,20 +52,44 @@ export class NotificationService {
         return { success: false, error: 'Notification permission was denied.' };
       }
 
-      // Register or get active service worker
+      // Register or get active service worker with fallback for dev mode
       let reg = await navigator.serviceWorker.getRegistration();
       if (!reg) {
-        reg = await navigator.serviceWorker.register('/ngsw-worker.js');
+        try {
+          reg = await navigator.serviceWorker.register('/ngsw-worker.js');
+        } catch (swErr) {
+          console.warn('Angular service worker not served by dev server, using custom service worker fallback:', swErr);
+          const swCode = `
+            self.addEventListener('push', function(event) {
+              const data = event.data ? event.data.json() : { title: 'Rafeeq Care Reminder', body: 'Time for your daily family care review.' };
+              event.waitUntil(
+                self.registration.showNotification(data.title || 'Rafeeq Care Reminder', {
+                  body: data.body,
+                  icon: '/favicon.ico'
+                })
+              );
+            });
+          `;
+          const blob = new Blob([swCode], { type: 'application/javascript' });
+          const blobUrl = URL.createObjectURL(blob);
+          reg = await navigator.serviceWorker.register(blobUrl);
+        }
       }
 
       const vapidKey = (environment as any).vapidPublicKey || 'BKmz37yWSnMjm1vvJpRRnAKPvv3T48vZPOk23kgZqymlTDwM8RTEqoo6JCDEpdE8NYRKs01HIEwo5_DEYlssTls';
-      let sub: PushSubscription | null = await reg.pushManager.getSubscription();
+      let sub: PushSubscription | null = null;
 
-      if (!sub) {
-        sub = await reg.pushManager.subscribe({
-          userVisibleOnly: true,
-          applicationServerKey: this.urlBase64ToUint8Array(vapidKey)
-        }).catch(() => null);
+      if (reg) {
+        sub = await reg.pushManager.getSubscription();
+        if (!sub) {
+          sub = await reg.pushManager.subscribe({
+            userVisibleOnly: true,
+            applicationServerKey: this.urlBase64ToUint8Array(vapidKey)
+          }).catch((subErr) => {
+            console.warn('PushManager subscribe warning:', subErr);
+            return null;
+          });
+        }
       }
 
       const endpoint = sub ? sub.endpoint : `https://fcm.googleapis.com/fcm/send/demo-${Date.now()}`;
