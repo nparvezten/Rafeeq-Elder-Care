@@ -79,7 +79,7 @@ export class HelplineService {
         .select('*')
         .order('created_at', { ascending: false });
 
-      if (!error && data) {
+      if (!error && data && data.length > 0) {
         this.helplines.set(data as Helpline[]);
       }
     } catch (err) {

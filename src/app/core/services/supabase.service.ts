@@ -45,7 +45,6 @@ export class SupabaseService {
 
   async signInWithMagicLink(email: string): Promise<{ error: Error | null }> {
     if (!this.client) {
-      // Demo fallback mode for local testing without real keys
       const mockUser: Partial<User> = {
         id: 'demo-user-id',
         email: email,
@@ -56,10 +55,13 @@ export class SupabaseService {
     }
 
     try {
+      // Constructs full origin + path (e.g. https://nparvezten.github.io/Rafeeq-Elder-Care/)
+      const redirectUrl = window.location.origin + window.location.pathname;
+
       const { error } = await this.client.auth.signInWithOtp({
         email,
         options: {
-          emailRedirectTo: window.location.origin
+          emailRedirectTo: redirectUrl
         }
       });
       return { error: error as Error | null };

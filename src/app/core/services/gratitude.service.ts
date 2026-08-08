@@ -56,7 +56,7 @@ export class GratitudeService {
         .select('*')
         .order('entry_date', { ascending: false });
 
-      if (!error && data) {
+      if (!error && data && data.length > 0) {
         this.entries.set(data as GratitudeEntry[]);
       }
     } catch (err) {

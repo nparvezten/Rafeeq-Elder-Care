@@ -77,7 +77,7 @@ export class AttendantService {
         .select('*')
         .order('created_at', { ascending: false });
 
-      if (!error && data) {
+      if (!error && data && data.length > 0) {
         this.attendants.set(data as Attendant[]);
       }
     } catch (err) {

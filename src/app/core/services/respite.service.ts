@@ -34,7 +34,6 @@ export class RespiteService {
   readonly requests = signal<RespiteRequest[]>(INITIAL_RESPITE_REQUESTS);
   readonly isLoading = signal<boolean>(false);
 
-  // Computed signals: Open requests first, claimed requests below
   readonly openRequests = computed(() => {
     return this.requests().filter(r => r.status === 'open');
   });
@@ -58,7 +57,7 @@ export class RespiteService {
         .select('*')
         .order('date', { ascending: true });
 
-      if (!error && data) {
+      if (!error && data && data.length > 0) {
         this.requests.set(data as RespiteRequest[]);
       }
     } catch (err) {

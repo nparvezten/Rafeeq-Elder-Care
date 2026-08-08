@@ -81,7 +81,7 @@ export class DiagnosticService {
         .select('*')
         .order('created_at', { ascending: false });
 
-      if (!error && data) {
+      if (!error && data && data.length > 0) {
         this.centers.set(data as DiagnosticCenter[]);
       }
     } catch (err) {
