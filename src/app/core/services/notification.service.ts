@@ -52,27 +52,14 @@ export class NotificationService {
         return { success: false, error: 'Notification permission was denied.' };
       }
 
-      // Register or get active service worker with fallback for dev mode
+      // Register or get active service worker from public/sw.js
       let reg = await navigator.serviceWorker.getRegistration();
       if (!reg) {
         try {
-          reg = await navigator.serviceWorker.register('/ngsw-worker.js');
+          reg = await navigator.serviceWorker.register('sw.js');
         } catch (swErr) {
-          console.warn('Angular service worker not served by dev server, using custom service worker fallback:', swErr);
-          const swCode = `
-            self.addEventListener('push', function(event) {
-              const data = event.data ? event.data.json() : { title: 'Rafeeq Care Reminder', body: 'Time for your daily family care review.' };
-              event.waitUntil(
-                self.registration.showNotification(data.title || 'Rafeeq Care Reminder', {
-                  body: data.body,
-                  icon: '/favicon.ico'
-                })
-              );
-            });
-          `;
-          const blob = new Blob([swCode], { type: 'application/javascript' });
-          const blobUrl = URL.createObjectURL(blob);
-          reg = await navigator.serviceWorker.register(blobUrl);
+          console.warn('Relative SW registration failed, trying root sw.js:', swErr);
+          reg = await navigator.serviceWorker.register('/sw.js');
         }
       }
 
