@@ -33,7 +33,7 @@ import { NotificationService } from '../../core/services/notification.service';
           </div>
 
           <!-- Enable / Disable Toggle Button -->
-          <div class="flex flex-col items-end">
+          <div class="flex flex-col items-end gap-2">
             @if (isSubscribed()) {
               <button 
                 (click)="disableReminders()"
@@ -53,6 +53,27 @@ import { NotificationService } from '../../core/services/notification.service';
             }
           </div>
         </div>
+
+        @if (isSubscribed()) {
+          <div class="mt-4 pt-2 flex items-center justify-between border-b border-ink/10 pb-4">
+            <span class="text-xs sm:text-sm text-ink/80">Test your device notification setup:</span>
+            <button 
+              (click)="sendTest()" 
+              class="tap-target px-4 py-1.5 bg-warmth/20 border border-warmth/40 text-ink rounded-xl text-xs sm:text-sm font-semibold hover:bg-warmth/30 transition-colors"
+            >
+              🔔 Send Test Notification
+            </button>
+          </div>
+        }
+
+        <!-- iOS Safari Notice Box -->
+        @if (isIOS() && !isStandalone()) {
+          <div class="mt-4 p-4 bg-warmth/15 border border-warmth/30 rounded-xl text-sm text-ink/90 leading-relaxed">
+            <strong class="font-semibold block mb-1">📱 iOS Safari Note:</strong>
+            Apple iOS requires web applications to be added to your Home Screen before enabling push notifications. 
+            Tap the <strong>Share ⎋</strong> button in Safari, choose <strong>"Add to Home Screen"</strong>, then open Rafeeq Care from your Home Screen.
+          </div>
+        }
 
         @if (statusMessage()) {
           <div class="mt-4 p-3 rounded-xl text-sm"
@@ -86,6 +107,8 @@ export class NotificationSettingsComponent {
   readonly permissionStatus = this.notificationService.permissionStatus;
   readonly isSubscribed = this.notificationService.isSubscribed;
   readonly isProcessing = this.notificationService.isProcessing;
+  readonly isIOS = this.notificationService.isIOS;
+  readonly isStandalone = this.notificationService.isStandalone;
 
   statusMessage = signal<string | null>(null);
 
@@ -94,9 +117,19 @@ export class NotificationSettingsComponent {
     const res = await this.notificationService.requestPermissionAndSubscribe();
 
     if (res.success) {
-      this.statusMessage.set('Daily care reminders enabled successfully.');
+      this.statusMessage.set('Daily care reminders enabled successfully on this browser!');
     } else {
       this.statusMessage.set(res.error || 'Failed to enable notification permission.');
+    }
+  }
+
+  async sendTest() {
+    this.statusMessage.set(null);
+    const res = await this.notificationService.sendTestNotification();
+    if (res.success) {
+      this.statusMessage.set('Test notification sent to your device screen!');
+    } else {
+      this.statusMessage.set(res.error || 'Unable to display test notification.');
     }
   }
 

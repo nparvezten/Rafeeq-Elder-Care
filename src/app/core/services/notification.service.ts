@@ -16,6 +16,13 @@ export class NotificationService {
   readonly isSubscribed = signal<boolean>(false);
   readonly isProcessing = signal<boolean>(false);
 
+  readonly isIOS = signal<boolean>(
+    typeof navigator !== 'undefined' && (/iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1))
+  );
+  readonly isStandalone = signal<boolean>(
+    typeof window !== 'undefined' && ('standalone' in window.navigator ? (window.navigator as any).standalone === true : false)
+  );
+
   constructor() {
     this.checkExistingSubscription();
   }
@@ -28,17 +35,23 @@ export class NotificationService {
         const reg = await navigator.serviceWorker.getRegistration();
         if (reg) {
           const sub = await reg.pushManager.getSubscription();
-          this.isSubscribed.set(!!sub);
+          this.isSubscribed.set(!!sub || Notification.permission === 'granted');
+        } else {
+          this.isSubscribed.set(Notification.permission === 'granted');
         }
       } catch (err) {
         console.warn('Error checking push subscription:', err);
+        this.isSubscribed.set(Notification.permission === 'granted');
       }
     }
   }
 
   async requestPermissionAndSubscribe(): Promise<{ success: boolean; error?: string }> {
     if (!this.isSupported()) {
-      return { success: false, error: 'Web Push Notifications are not supported in this browser.' };
+      return { 
+        success: false, 
+        error: 'Web Push Notifications are not supported in this browser tab. On iOS Safari, please tap Share ⎋ -> "Add to Home Screen" first.' 
+      };
     }
 
     this.isProcessing.set(true);
@@ -49,31 +62,40 @@ export class NotificationService {
 
       if (permission !== 'granted') {
         this.isProcessing.set(false);
-        return { success: false, error: 'Notification permission was denied.' };
+        return { 
+          success: false, 
+          error: permission === 'denied' 
+            ? 'Notification permission was denied. Please allow notifications in your browser site settings.' 
+            : 'Notification permission request was dismissed.' 
+        };
       }
 
-      // Register or get active service worker from public/sw.js
+      // Register or get active service worker from sw.js
       let reg = await navigator.serviceWorker.getRegistration();
       if (!reg) {
         try {
           reg = await navigator.serviceWorker.register('sw.js');
         } catch (swErr) {
           console.warn('Relative SW registration failed, trying root sw.js:', swErr);
-          reg = await navigator.serviceWorker.register('/sw.js');
+          try {
+            reg = await navigator.serviceWorker.register('/sw.js');
+          } catch (err2) {
+            console.warn('Service Worker registration fallback:', err2);
+          }
         }
       }
 
       const vapidKey = (environment as any).vapidPublicKey || 'BKmz37yWSnMjm1vvJpRRnAKPvv3T48vZPOk23kgZqymlTDwM8RTEqoo6JCDEpdE8NYRKs01HIEwo5_DEYlssTls';
       let sub: PushSubscription | null = null;
 
-      if (reg) {
+      if (reg && 'pushManager' in reg) {
         sub = await reg.pushManager.getSubscription();
         if (!sub) {
           sub = await reg.pushManager.subscribe({
             userVisibleOnly: true,
             applicationServerKey: this.urlBase64ToUint8Array(vapidKey)
           }).catch((subErr) => {
-            console.warn('PushManager subscribe warning:', subErr);
+            console.warn('PushManager subscribe notice:', subErr);
             return null;
           });
         }
@@ -110,6 +132,30 @@ export class NotificationService {
     } catch (err: any) {
       this.isProcessing.set(false);
       return { success: false, error: err.message || 'Unable to enable notifications.' };
+    }
+  }
+
+  async sendTestNotification(): Promise<{ success: boolean; error?: string }> {
+    try {
+      if (Notification.permission !== 'granted') {
+        return { success: false, error: 'Notification permission is not granted yet.' };
+      }
+      const reg = await navigator.serviceWorker.getRegistration();
+      if (reg) {
+        await reg.showNotification('Rafeeq Care Test Notification', {
+          body: 'Care reminders are active on your device!',
+          icon: 'favicon.ico'
+        });
+        return { success: true };
+      } else {
+        new Notification('Rafeeq Care Test Notification', {
+          body: 'Care reminders are active on your device!',
+          icon: 'favicon.ico'
+        });
+        return { success: true };
+      }
+    } catch (err: any) {
+      return { success: false, error: err.message || 'Unable to display test notification.' };
     }
   }
 

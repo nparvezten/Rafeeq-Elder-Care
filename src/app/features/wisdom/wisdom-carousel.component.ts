@@ -8,7 +8,7 @@ import { WisdomQuote } from '../../core/models/gratitude.model';
   standalone: true,
   imports: [CommonModule],
   template: `
-    <div class="max-w-4xl mx-auto px-4 py-6">
+    <div class="max-w-4xl mx-auto px-4 py-6 overflow-hidden">
       
       <!-- Section Header & Description -->
       <div class="text-center mb-6">
@@ -29,7 +29,7 @@ import { WisdomQuote } from '../../core/models/gratitude.model';
               'bg-companion text-canvas font-bold shadow-sm': selectedCategory() === cat,
               'bg-canvas border border-ink/20 text-ink/80 hover:text-ink hover:bg-ink/5': selectedCategory() !== cat
             }"
-            class="tap-target px-4 py-1.5 rounded-full text-sm font-semibold capitalize transition-all"
+            class="tap-target px-3.5 py-1.5 rounded-full text-xs sm:text-sm font-semibold capitalize transition-all"
           >
             {{ cat === 'all' ? 'All Traditions' : cat }}
           </button>
@@ -42,7 +42,7 @@ import { WisdomQuote } from '../../core/models/gratitude.model';
         (mouseleave)="resumeAutoplay()"
         (touchstart)="onTouchStart($event)"
         (touchend)="onTouchEnd($event)"
-        class="journal-card relative overflow-hidden bg-gradient-to-br from-companion/95 via-companion/85 to-warmth/90 text-canvas p-8 sm:p-12 min-h-[280px] flex flex-col justify-between shadow-lg"
+        class="journal-card relative overflow-hidden bg-gradient-to-br from-companion/95 via-companion/85 to-warmth/90 text-canvas p-6 sm:p-10 min-h-[280px] flex flex-col justify-between shadow-lg w-full max-w-full"
       >
         <!-- Background subtle decorative circle -->
         <div class="absolute -right-12 -bottom-12 w-64 h-64 bg-warmth/20 rounded-full blur-2xl pointer-events-none"></div>
@@ -50,53 +50,45 @@ import { WisdomQuote } from '../../core/models/gratitude.model';
         @if (quotes().length > 0) {
           <!-- Quote Body -->
           <div class="relative z-10 flex-1 flex flex-col justify-center my-auto">
-            <span class="text-4xl font-serif text-warmth/80 leading-none select-none">“</span>
+            <span class="text-3xl sm:text-4xl font-serif text-warmth/80 leading-none select-none">“</span>
             
-            <p class="font-serif text-xl sm:text-2xl sm:leading-relaxed font-semibold tracking-tight my-3 text-canvas/95">
+            <p class="font-serif text-lg sm:text-2xl sm:leading-relaxed font-semibold tracking-tight my-2 sm:my-3 text-canvas/95 leading-snug">
               {{ currentQuote().text }}
             </p>
 
-            <p class="text-sm sm:text-base font-medium text-canvas/75 font-sans mt-2 tracking-wide uppercase">
+            <p class="text-xs sm:text-base font-medium text-canvas/75 font-sans mt-2 tracking-wide uppercase">
               — {{ currentQuote().source }}
             </p>
           </div>
 
-          <!-- Controls & Dots -->
-          <div class="relative z-10 pt-6 flex items-center justify-between gap-4 border-t border-canvas/15 mt-6">
+          <!-- Controls & Indicator Footer -->
+          <div class="relative z-10 pt-4 sm:pt-6 flex items-center justify-between gap-2 sm:gap-4 border-t border-canvas/15 mt-4 sm:mt-6 w-full">
             
-            <!-- Navigation Arrows -->
+            <!-- Navigation Arrow Left -->
             <button 
               (click)="prevQuote()" 
-              class="tap-target p-2 text-canvas/70 hover:text-canvas rounded-full transition-colors"
+              class="tap-target p-2 text-canvas/80 hover:text-canvas rounded-full transition-colors flex-shrink-0 bg-canvas/10 hover:bg-canvas/20"
               aria-label="Previous quote"
             >
-              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
               </svg>
             </button>
 
-            <!-- Slide Indicator Dots -->
-            <div class="flex items-center gap-2">
-              @for (q of quotes(); track q.id; let idx = $index) {
-                <button 
-                  (click)="goToIndex(idx)"
-                  [ngClass]="{
-                    'w-6 bg-warmth': currentIndex() === idx,
-                    'w-2 bg-canvas/40 hover:bg-canvas/70': currentIndex() !== idx
-                  }"
-                  class="h-2 rounded-full transition-all"
-                  [attr.aria-label]="'Go to quote ' + (idx + 1)"
-                ></button>
-              }
+            <!-- Counter / Dots Indicator -->
+            <div class="flex items-center justify-center flex-1 px-2">
+              <span class="text-xs sm:text-sm font-semibold tracking-wider text-canvas/90 bg-canvas/10 px-3 py-1 rounded-full font-mono">
+                {{ currentIndex() + 1 }} / {{ quotes().length }}
+              </span>
             </div>
 
-            <!-- Next Arrow -->
+            <!-- Navigation Arrow Right -->
             <button 
               (click)="nextQuote()" 
-              class="tap-target p-2 text-canvas/70 hover:text-canvas rounded-full transition-colors"
+              class="tap-target p-2 text-canvas/80 hover:text-canvas rounded-full transition-colors flex-shrink-0 bg-canvas/10 hover:bg-canvas/20"
               aria-label="Next quote"
             >
-              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
               </svg>
             </button>
