@@ -36,7 +36,7 @@ import { NotificationService } from '../../core/services/notification.service';
           <div class="flex flex-col items-end gap-2">
             @if (isSubscribed()) {
               <button 
-                (click)="disableReminders()"
+                (click)="disableNotifications()"
                 [disabled]="isProcessing()"
                 class="tap-target px-4 py-2 bg-hearth/30 text-ink border border-hearth/50 rounded-xl text-sm font-bold hover:bg-hearth/40 transition-colors"
               >
@@ -54,17 +54,23 @@ import { NotificationService } from '../../core/services/notification.service';
           </div>
         </div>
 
-        @if (isSubscribed()) {
-          <div class="mt-4 pt-2 flex items-center justify-between border-b border-ink/10 pb-4">
-            <span class="text-xs sm:text-sm text-ink/80">Test your device notification setup:</span>
-            <button 
-              (click)="sendTest()" 
-              class="tap-target px-4 py-1.5 bg-warmth/20 border border-warmth/40 text-ink rounded-xl text-xs sm:text-sm font-semibold hover:bg-warmth/30 transition-colors"
-            >
-              🔔 Send Test Notification
-            </button>
-          </div>
-        }
+        <div class="mt-4 pt-2 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 border-b border-ink/10 pb-4">
+          <button 
+            (click)="sendTest()" 
+            [disabled]="!isSubscribed()"
+            class="tap-target px-4 py-2 bg-canvas border border-ink/20 text-ink rounded-xl text-xs sm:text-sm font-semibold hover:bg-ink/5 transition-colors disabled:opacity-50"
+          >
+            🔔 Send Test Notification
+          </button>
+
+          <button 
+            (click)="triggerCloudReminder()" 
+            [disabled]="isSendingCloud()"
+            class="tap-target px-4 py-2 bg-companion text-canvas rounded-xl text-xs sm:text-sm font-semibold hover:bg-companion/90 transition-colors shadow-sm disabled:opacity-50"
+          >
+            {{ isSendingCloud() ? 'Sending...' : '🚀 Broadcast Reminder to Family' }}
+          </button>
+        </div>
 
         <!-- iOS Safari Notice Box -->
         @if (isIOS() && !isStandalone()) {
@@ -111,6 +117,7 @@ export class NotificationSettingsComponent {
   readonly isStandalone = this.notificationService.isStandalone;
 
   statusMessage = signal<string | null>(null);
+  isSendingCloud = signal<boolean>(false);
 
   async enableReminders() {
     this.statusMessage.set(null);
@@ -133,7 +140,20 @@ export class NotificationSettingsComponent {
     }
   }
 
-  async disableReminders() {
+  async triggerCloudReminder() {
+    this.statusMessage.set(null);
+    this.isSendingCloud.set(true);
+    const res = await this.notificationService.triggerCloudReminder();
+    this.isSendingCloud.set(false);
+
+    if (res.success) {
+      this.statusMessage.set(`Cloud push notification sent to ${res.sentCount || 0} family device subscription(s)!`);
+    } else {
+      this.statusMessage.set(res.error || 'Unable to trigger cloud reminders.');
+    }
+  }
+
+  async disableNotifications() {
     this.statusMessage.set(null);
     await this.notificationService.disableNotifications();
     this.statusMessage.set('Daily care reminders turned off.');

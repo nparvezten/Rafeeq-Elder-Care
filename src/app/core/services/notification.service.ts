@@ -159,6 +159,27 @@ export class NotificationService {
     }
   }
 
+  async triggerCloudReminder(messageText?: string): Promise<{ success: boolean; sentCount?: number; error?: string }> {
+    try {
+      const response = await fetch('https://nzppxhrbtgmxfuhfkgcm.supabase.co/functions/v1/send-reminder', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          title: 'Rafeeq Care Reminder',
+          message: messageText || 'Time for your daily family care review and reflection.'
+        })
+      });
+      const data = await response.json();
+      if (data.success) {
+        return { success: true, sentCount: data.sentCount };
+      } else {
+        return { success: false, error: data.error || 'Failed to trigger cloud reminders.' };
+      }
+    } catch (err: any) {
+      return { success: false, error: err.message || 'Network error triggering cloud reminders.' };
+    }
+  }
+
   async disableNotifications(): Promise<void> {
     this.isProcessing.set(true);
     try {
