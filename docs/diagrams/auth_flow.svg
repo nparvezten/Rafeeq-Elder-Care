@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 480" width="100%" height="100%">
+  <defs>
+    <style>
+      .title { font-family: 'Fraunces', Georgia, serif; font-weight: bold; font-size: 20px; fill: #33261F; }
+      .subtitle { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 13px; fill: #5c483d; }
+      .actor-box { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-weight: 700; font-size: 13px; fill: #FAF1E4; }
+      .step-num { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-weight: bold; font-size: 11px; fill: #FFFFFF; }
+      .step-text { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 12px; font-weight: 600; fill: #33261F; }
+      .step-detail { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 11px; fill: #6e584d; font-family: monospace; }
+    </style>
+
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+      <path d="M 0 1 L 6 4 L 0 7 z" fill="#1E4D46" />
+    </marker>
+    <marker id="arrow-warmth" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+      <path d="M 0 1 L 6 4 L 0 7 z" fill="#D98A3D" />
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="860" height="480" rx="16" fill="#FAF1E4"/>
+  <rect x="12" y="12" width="836" height="456" rx="12" fill="none" stroke="#33261F" stroke-opacity="0.1" stroke-width="1.5"/>
+
+  <!-- Header -->
+  <text x="36" y="44" class="title">Family Caregiver Authentication Flow</text>
+  <text x="36" y="64" class="subtitle">Passwordless Magic Link OTP Authentication via Supabase Auth</text>
+
+  <!-- Lifelines -->
+  <line x1="120" y1="130" x2="120" y2="430" stroke="#33261F" stroke-opacity="0.2" stroke-dasharray="4,4" stroke-width="1.5"/>
+  <line x1="330" y1="130" x2="330" y2="430" stroke="#33261F" stroke-opacity="0.2" stroke-dasharray="4,4" stroke-width="1.5"/>
+  <line x1="550" y1="130" x2="550" y2="430" stroke="#33261F" stroke-opacity="0.2" stroke-dasharray="4,4" stroke-width="1.5"/>
+  <line x1="750" y1="130" x2="750" y2="430" stroke="#33261F" stroke-opacity="0.2" stroke-dasharray="4,4" stroke-width="1.5"/>
+
+  <!-- Actors / Header Blocks -->
+  <rect x="50" y="85" width="140" height="42" rx="8" fill="#1E4D46"/>
+  <text x="120" y="111" class="actor-box" text-anchor="middle">👤 Family Member</text>
+
+  <rect x="250" y="85" width="160" height="42" rx="8" fill="#1E4D46"/>
+  <text x="330" y="111" class="actor-box" text-anchor="middle">📱 Rafeeq Web App</text>
+
+  <rect x="470" y="85" width="160" height="42" rx="8" fill="#33261F"/>
+  <text x="550" y="111" class="actor-box" text-anchor="middle">⚡ Supabase Auth</text>
+
+  <rect x="680" y="85" width="140" height="42" rx="8" fill="#D98A3D"/>
+  <text x="750" y="111" class="actor-box" text-anchor="middle">✉️ Email Inbox</text>
+
+  <!-- Step 1: Enter Email -->
+  <path d="M 120 155 L 325 155" fill="none" stroke="#1E4D46" stroke-width="2" marker-end="url(#arrow)"/>
+  <circle cx="140" cy="145" r="10" fill="#1E4D46"/>
+  <text x="140" y="149" class="step-num" text-anchor="middle">1</text>
+  <text x="156" y="148" class="step-text">Enter Email Address &amp; Click "Send Magic Link"</text>
+
+  <!-- Step 2: Request OTP -->
+  <path d="M 330 195 L 545 195" fill="none" stroke="#1E4D46" stroke-width="2" marker-end="url(#arrow)"/>
+  <circle cx="350" cy="185" r="10" fill="#1E4D46"/>
+  <text x="350" y="189" class="step-num" text-anchor="middle">2</text>
+  <text x="366" y="188" class="step-text">auth.signInWithOtp({ email, emailRedirectTo })</text>
+
+  <!-- Step 3: Send Email OTP -->
+  <path d="M 550 235 L 745 235" fill="none" stroke="#D98A3D" stroke-width="2" marker-end="url(#arrow-warmth)"/>
+  <circle cx="570" cy="225" r="10" fill="#D98A3D"/>
+  <text x="570" y="229" class="step-num" text-anchor="middle">3</text>
+  <text x="586" y="228" class="step-text">Send Email with One-Time Login Link</text>
+
+  <!-- Step 4: Click Magic Link -->
+  <path d="M 750 275 L 125 275" fill="none" stroke="#D98A3D" stroke-width="2" stroke-dasharray="4,4" marker-end="url(#arrow-warmth)"/>
+  <circle cx="650" cy="265" r="10" fill="#D98A3D"/>
+  <text x="650" y="269" class="step-num" text-anchor="middle">4</text>
+  <text x="340" y="268" class="step-text">User opens email &amp; clicks Magic Link</text>
+
+  <!-- Step 5: Redirect to App -->
+  <path d="M 120 315 L 325 315" fill="none" stroke="#1E4D46" stroke-width="2" marker-end="url(#arrow)"/>
+  <circle cx="140" cy="305" r="10" fill="#1E4D46"/>
+  <text x="140" y="309" class="step-num" text-anchor="middle">5</text>
+  <text x="156" y="308" class="step-text">Redirects with #access_token to GitHub Pages</text>
+
+  <!-- Step 6: Session Established -->
+  <path d="M 330 355 L 545 355" fill="none" stroke="#1E4D46" stroke-width="2" marker-end="url(#arrow)"/>
+  <circle cx="350" cy="345" r="10" fill="#1E4D46"/>
+  <text x="350" y="349" class="step-num" text-anchor="middle">6</text>
+  <text x="366" y="348" class="step-text">supabase.auth.getSession() verifies token</text>
+
+  <!-- Step 7: Update UI Signal State -->
+  <path d="M 550 395 L 335 395" fill="none" stroke="#1E4D46" stroke-width="2" marker-end="url(#arrow)"/>
+  <circle cx="530" cy="385" r="10" fill="#1E4D46"/>
+  <text x="530" y="389" class="step-num" text-anchor="middle">7</text>
+  <text x="360" y="388" class="step-text">currentUser signal updated → Shows Add/Edit actions</text>
+</svg>

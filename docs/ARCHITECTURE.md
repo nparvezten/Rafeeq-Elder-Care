@@ -18,6 +18,11 @@ Family caregiving is often managed under high stress, tight budgets, and fragmen
 
 ## 🏗️ System Architecture Diagram
 
+![System Architecture Diagram](diagrams/system_architecture.svg)
+
+<details>
+<summary><b>View Mermaid Source</b></summary>
+
 ```mermaid
 graph TD
     subgraph Client ["Client Layer (Browser & Mobile PWA)"]
@@ -51,12 +56,18 @@ graph TD
     EdgeFunc -->|web-push| FCM
     FCM -->|Push Event| SW
 ```
+</details>
 
 ---
 
 ## 🔄 User & Data Flow Diagrams
 
 ### 1. Family Caregiver Authentication Flow
+
+![Family Caregiver Authentication Flow](diagrams/auth_flow.svg)
+
+<details>
+<summary><b>View Mermaid Source</b></summary>
 
 ```mermaid
 sequenceDiagram
@@ -75,10 +86,16 @@ sequenceDiagram
     Supabase-->>App: Return User Profile
     App-->>Caregiver: Display Authenticated State & Add/Edit Actions
 ```
+</details>
 
 ---
 
 ### 2. Shared Expense & Net Balance Calculation Flow
+
+![Shared Expense & Net Balance Calculation Flow](diagrams/expense_flow.svg)
+
+<details>
+<summary><b>View Mermaid Source</b></summary>
 
 ```mermaid
 sequenceDiagram
@@ -93,10 +110,16 @@ sequenceDiagram
     Service->>Service: Recompute netBalances Signal (Arithmetic Split)
     Service-->>Caregiver: Update "Who Owes Whom" Summary Cards
 ```
+</details>
 
 ---
 
 ### 3. Respite Care Coverage & Claim Flow
+
+![Respite Care Coverage & Claim Flow](diagrams/respite_flow.svg)
+
+<details>
+<summary><b>View Mermaid Source</b></summary>
 
 ```mermaid
 sequenceDiagram
@@ -115,10 +138,16 @@ sequenceDiagram
     DB-->>Service: Confirm Update
     Service-->>CaregiverA: Shift moves to Claimed List with Claimant Name
 ```
+</details>
 
 ---
 
 ### 4. Web Push Notification Flow
+
+![Web Push Notification Flow](diagrams/notification_flow.svg)
+
+<details>
+<summary><b>View Mermaid Source</b></summary>
 
 ```mermaid
 sequenceDiagram
@@ -142,6 +171,7 @@ sequenceDiagram
     Edge->>SW: Dispatch Web Push Payload (web-push)
     SW-->>Caregiver: Display System Notification Banner
 ```
+</details>
 
 ---
 

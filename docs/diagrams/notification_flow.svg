@@ -1,0 +1,90 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 500" width="100%" height="100%">
+  <defs>
+    <style>
+      .title { font-family: 'Fraunces', Georgia, serif; font-weight: bold; font-size: 20px; fill: #33261F; }
+      .subtitle { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 13px; fill: #5c483d; }
+      .actor-box { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-weight: 700; font-size: 13px; fill: #FAF1E4; }
+      .step-num { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-weight: bold; font-size: 11px; fill: #FFFFFF; }
+      .step-text { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 12px; font-weight: 600; fill: #33261F; }
+    </style>
+
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+      <path d="M 0 1 L 6 4 L 0 7 z" fill="#1E4D46" />
+    </marker>
+    <marker id="arrow-warmth" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+      <path d="M 0 1 L 6 4 L 0 7 z" fill="#D98A3D" />
+    </marker>
+    <marker id="arrow-hearth" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+      <path d="M 0 1 L 6 4 L 0 7 z" fill="#2d4825" />
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="900" height="500" rx="16" fill="#FAF1E4"/>
+  <rect x="12" y="12" width="876" height="476" rx="12" fill="none" stroke="#33261F" stroke-opacity="0.1" stroke-width="1.5"/>
+
+  <!-- Header -->
+  <text x="36" y="44" class="title">Web Push Notification &amp; Edge Function Flow</text>
+  <text x="36" y="64" class="subtitle">Subscription registration, Edge Function dispatch, and Service Worker notification display</text>
+
+  <!-- Lifelines -->
+  <line x1="110" y1="130" x2="110" y2="450" stroke="#33261F" stroke-opacity="0.2" stroke-dasharray="4,4" stroke-width="1.5"/>
+  <line x1="300" y1="130" x2="300" y2="450" stroke="#33261F" stroke-opacity="0.2" stroke-dasharray="4,4" stroke-width="1.5"/>
+  <line x1="500" y1="130" x2="500" y2="450" stroke="#33261F" stroke-opacity="0.2" stroke-dasharray="4,4" stroke-width="1.5"/>
+  <line x1="700" y1="130" x2="700" y2="450" stroke="#33261F" stroke-opacity="0.2" stroke-dasharray="4,4" stroke-width="1.5"/>
+
+  <!-- Actors -->
+  <rect x="35" y="85" width="150" height="42" rx="8" fill="#1E4D46"/>
+  <text x="110" y="111" class="actor-box" text-anchor="middle">👤 Caregiver UI</text>
+
+  <rect x="220" y="85" width="160" height="42" rx="8" fill="#1E4D46"/>
+  <text x="300" y="111" class="actor-box" text-anchor="middle">⚙️ Service Worker</text>
+
+  <rect x="420" y="85" width="160" height="42" rx="8" fill="#33261F"/>
+  <text x="500" y="111" class="actor-box" text-anchor="middle">🗄️ Supabase DB</text>
+
+  <rect x="610" y="85" width="180" height="42" rx="8" fill="#D98A3D"/>
+  <text x="700" y="111" class="actor-box" text-anchor="middle">⚡ Edge Function</text>
+
+  <!-- Step 1: Request Subscription -->
+  <path d="M 110 155 L 295 155" fill="none" stroke="#1E4D46" stroke-width="2" marker-end="url(#arrow)"/>
+  <circle cx="130" cy="145" r="10" fill="#1E4D46"/>
+  <text x="130" y="149" class="step-num" text-anchor="middle">1</text>
+  <text x="148" y="148" class="step-text">Click "Enable Reminders" → Request Notification permission</text>
+
+  <!-- Step 2: PushManager Subscription -->
+  <path d="M 300 195 L 115 195" fill="none" stroke="#1E4D46" stroke-width="2" stroke-dasharray="4,4" marker-end="url(#arrow)"/>
+  <circle cx="280" cy="185" r="10" fill="#1E4D46"/>
+  <text x="280" y="189" class="step-num" text-anchor="middle">2</text>
+  <text x="135" y="188" class="step-text">Return PushSubscription (endpoint + VAPID keys)</text>
+
+  <!-- Step 3: Save to Database -->
+  <path d="M 110 235 L 495 235" fill="none" stroke="#1E4D46" stroke-width="2" marker-end="url(#arrow)"/>
+  <circle cx="130" cy="225" r="10" fill="#1E4D46"/>
+  <text x="130" y="229" class="step-num" text-anchor="middle">3</text>
+  <text x="148" y="228" class="step-text">INSERT record into public.push_subscriptions</text>
+
+  <!-- Step 4: Trigger Broadcast -->
+  <path d="M 110 285 L 695 285" fill="none" stroke="#D98A3D" stroke-width="2" marker-end="url(#arrow-warmth)"/>
+  <circle cx="130" cy="275" r="10" fill="#D98A3D"/>
+  <text x="130" y="279" class="step-num" text-anchor="middle">4</text>
+  <text x="148" y="278" class="step-text">HTTP POST /functions/v1/send-reminder (Manual or Pg_cron)</text>
+
+  <!-- Step 5: Read Subscriptions -->
+  <path d="M 700 325 L 505 325" fill="none" stroke="#33261F" stroke-width="2" marker-end="url(#arrow)"/>
+  <circle cx="680" cy="315" r="10" fill="#33261F"/>
+  <text x="680" y="319" class="step-num" text-anchor="middle">5</text>
+  <text x="520" y="318" class="step-text">SELECT active subscriptions from DB</text>
+
+  <!-- Step 6: Dispatch Web Push -->
+  <path d="M 700 370 L 305 370" fill="none" stroke="#D98A3D" stroke-width="2" marker-end="url(#arrow-warmth)"/>
+  <circle cx="680" cy="360" r="10" fill="#D98A3D"/>
+  <text x="680" y="364" class="step-num" text-anchor="middle">6</text>
+  <text x="330" y="363" class="step-text">Dispatch web-push payload to all registered browser endpoints</text>
+
+  <!-- Step 7: Display Notification -->
+  <path d="M 300 415 L 115 415" fill="none" stroke="#2d4825" stroke-width="2" marker-end="url(#arrow-hearth)"/>
+  <circle cx="280" cy="405" r="10" fill="#2d4825"/>
+  <text x="280" y="409" class="step-num" text-anchor="middle">7</text>
+  <text x="135" y="408" class="step-text">self.registration.showNotification() displays system push banner</text>
+</svg>
