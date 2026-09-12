@@ -12,6 +12,21 @@ export const routes: Routes = [
       import('./features/wisdom/wisdom-carousel.component').then(m => m.WisdomCarouselComponent)
   },
   {
+    path: 'routine',
+    loadComponent: () => 
+      import('./features/routine/routine-view.component').then(m => m.RoutineViewComponent)
+  },
+  {
+    path: 'supplies',
+    loadComponent: () => 
+      import('./features/supplies/supplies-view.component').then(m => m.SuppliesViewComponent)
+  },
+  {
+    path: 'rehab',
+    loadComponent: () => 
+      import('./features/rehab/rehab-view.component').then(m => m.RehabViewComponent)
+  },
+  {
     path: 'attendants',
     loadComponent: () => 
       import('./features/attendants/attendant-list.component').then(m => m.AttendantListComponent)
@@ -51,3 +66,5 @@ export const routes: Routes = [
     redirectTo: 'wisdom'
   }
 ];
+
+

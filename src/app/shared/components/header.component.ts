@@ -74,13 +74,37 @@ import { AuthModalComponent } from '../../features/auth/auth-modal.component';
           [routerLinkActiveOptions]="{ exact: true }"
           class="tap-target px-3.5 py-3 border-b-2 border-transparent text-ink/70 hover:text-ink text-sm font-semibold transition-all whitespace-nowrap"
         >
-          Wisdom
+          📖 Wisdom
+        </a>
+
+        <a 
+          routerLink="/routine" 
+          routerLinkActive="border-companion text-companion font-bold"
+          class="tap-target px-3 py-3 border-b-2 border-transparent text-ink/70 hover:text-ink text-sm font-semibold transition-all whitespace-nowrap"
+        >
+          🛏️ Routine
+        </a>
+
+        <a 
+          routerLink="/supplies" 
+          routerLinkActive="border-companion text-companion font-bold"
+          class="tap-target px-3 py-3 border-b-2 border-transparent text-ink/70 hover:text-ink text-sm font-semibold transition-all whitespace-nowrap"
+        >
+          📦 Supplies
+        </a>
+
+        <a 
+          routerLink="/rehab" 
+          routerLinkActive="border-companion text-companion font-bold"
+          class="tap-target px-3 py-3 border-b-2 border-transparent text-ink/70 hover:text-ink text-sm font-semibold transition-all whitespace-nowrap"
+        >
+          🏃‍♂️ Rehab
         </a>
 
         <a 
           routerLink="/attendants" 
           routerLinkActive="border-companion text-companion font-bold"
-          class="tap-target px-3.5 py-3 border-b-2 border-transparent text-ink/70 hover:text-ink text-sm font-semibold transition-all whitespace-nowrap"
+          class="tap-target px-3 py-3 border-b-2 border-transparent text-ink/70 hover:text-ink text-sm font-semibold transition-all whitespace-nowrap"
         >
           Attendants
         </a>
@@ -88,7 +112,7 @@ import { AuthModalComponent } from '../../features/auth/auth-modal.component';
         <a 
           routerLink="/expenses" 
           routerLinkActive="border-companion text-companion font-bold"
-          class="tap-target px-3.5 py-3 border-b-2 border-transparent text-ink/70 hover:text-ink text-sm font-semibold transition-all whitespace-nowrap"
+          class="tap-target px-3 py-3 border-b-2 border-transparent text-ink/70 hover:text-ink text-sm font-semibold transition-all whitespace-nowrap"
         >
           Expenses
         </a>
@@ -96,15 +120,15 @@ import { AuthModalComponent } from '../../features/auth/auth-modal.component';
         <a 
           routerLink="/respite" 
           routerLinkActive="border-companion text-companion font-bold"
-          class="tap-target px-3.5 py-3 border-b-2 border-transparent text-ink/70 hover:text-ink text-sm font-semibold transition-all whitespace-nowrap"
+          class="tap-target px-3 py-3 border-b-2 border-transparent text-ink/70 hover:text-ink text-sm font-semibold transition-all whitespace-nowrap"
         >
-          Respite Board
+          Respite
         </a>
 
         <a 
           routerLink="/diagnostics" 
           routerLinkActive="border-companion text-companion font-bold"
-          class="tap-target px-3.5 py-3 border-b-2 border-transparent text-ink/70 hover:text-ink text-sm font-semibold transition-all whitespace-nowrap"
+          class="tap-target px-3 py-3 border-b-2 border-transparent text-ink/70 hover:text-ink text-sm font-semibold transition-all whitespace-nowrap"
         >
           Diagnostics
         </a>
@@ -112,7 +136,7 @@ import { AuthModalComponent } from '../../features/auth/auth-modal.component';
         <a 
           routerLink="/helplines" 
           routerLinkActive="border-companion text-companion font-bold"
-          class="tap-target px-3.5 py-3 border-b-2 border-transparent text-ink/70 hover:text-ink text-sm font-semibold transition-all whitespace-nowrap"
+          class="tap-target px-3 py-3 border-b-2 border-transparent text-ink/70 hover:text-ink text-sm font-semibold transition-all whitespace-nowrap"
         >
           Helplines
         </a>
@@ -120,7 +144,7 @@ import { AuthModalComponent } from '../../features/auth/auth-modal.component';
         <a 
           routerLink="/gratitude" 
           routerLinkActive="border-companion text-companion font-bold"
-          class="tap-target px-3.5 py-3 border-b-2 border-transparent text-ink/70 hover:text-ink text-sm font-semibold transition-all whitespace-nowrap"
+          class="tap-target px-3 py-3 border-b-2 border-transparent text-ink/70 hover:text-ink text-sm font-semibold transition-all whitespace-nowrap"
         >
           Gratitude
         </a>
@@ -128,7 +152,7 @@ import { AuthModalComponent } from '../../features/auth/auth-modal.component';
         <a 
           routerLink="/settings" 
           routerLinkActive="border-companion text-companion font-bold"
-          class="tap-target px-3.5 py-3 border-b-2 border-transparent text-ink/70 hover:text-ink text-sm font-semibold transition-all whitespace-nowrap"
+          class="tap-target px-3 py-3 border-b-2 border-transparent text-ink/70 hover:text-ink text-sm font-semibold transition-all whitespace-nowrap"
         >
           Settings
         </a>
@@ -136,22 +160,49 @@ import { AuthModalComponent } from '../../features/auth/auth-modal.component';
 
       <!-- Mobile Dropdown Navigation Menu -->
       @if (isMobileMenuOpen()) {
-        <div class="md:hidden border-t border-ink/10 bg-canvas/95 px-4 py-3 space-y-1 shadow-lg">
+        <div class="md:hidden border-t border-ink/10 bg-canvas/95 px-4 py-3 space-y-1 shadow-lg max-h-[80vh] overflow-y-auto">
           <a 
             routerLink="/wisdom" 
             (click)="closeMobileMenu()"
             routerLinkActive="bg-companion/10 text-companion font-bold border-companion/30"
             [routerLinkActiveOptions]="{ exact: true }"
-            class="block tap-target px-4 py-3 rounded-xl border border-transparent text-ink/80 hover:text-ink text-base font-semibold transition-all"
+            class="block tap-target px-4 py-2.5 rounded-xl border border-transparent text-ink/80 hover:text-ink text-sm font-semibold transition-all"
           >
             📖 Shared Wisdom
+          </a>
+
+          <a 
+            routerLink="/routine" 
+            (click)="closeMobileMenu()"
+            routerLinkActive="bg-companion/10 text-companion font-bold border-companion/30"
+            class="block tap-target px-4 py-2.5 rounded-xl border border-transparent text-ink/80 hover:text-ink text-sm font-semibold transition-all"
+          >
+            🛏️ Bedside Routine & Shift
+          </a>
+
+          <a 
+            routerLink="/supplies" 
+            (click)="closeMobileMenu()"
+            routerLinkActive="bg-companion/10 text-companion font-bold border-companion/30"
+            class="block tap-target px-4 py-2.5 rounded-xl border border-transparent text-ink/80 hover:text-ink text-sm font-semibold transition-all"
+          >
+            📦 Supplies & Rentals
+          </a>
+
+          <a 
+            routerLink="/rehab" 
+            (click)="closeMobileMenu()"
+            routerLinkActive="bg-companion/10 text-companion font-bold border-companion/30"
+            class="block tap-target px-4 py-2.5 rounded-xl border border-transparent text-ink/80 hover:text-ink text-sm font-semibold transition-all"
+          >
+            🏃‍♂️ Home Rehab & Therapy
           </a>
 
           <a 
             routerLink="/attendants" 
             (click)="closeMobileMenu()"
             routerLinkActive="bg-companion/10 text-companion font-bold border-companion/30"
-            class="block tap-target px-4 py-3 rounded-xl border border-transparent text-ink/80 hover:text-ink text-base font-semibold transition-all"
+            class="block tap-target px-4 py-2.5 rounded-xl border border-transparent text-ink/80 hover:text-ink text-sm font-semibold transition-all"
           >
             👥 Attendant Directory
           </a>
@@ -160,7 +211,7 @@ import { AuthModalComponent } from '../../features/auth/auth-modal.component';
             routerLink="/expenses" 
             (click)="closeMobileMenu()"
             routerLinkActive="bg-companion/10 text-companion font-bold border-companion/30"
-            class="block tap-target px-4 py-3 rounded-xl border border-transparent text-ink/80 hover:text-ink text-base font-semibold transition-all"
+            class="block tap-target px-4 py-2.5 rounded-xl border border-transparent text-ink/80 hover:text-ink text-sm font-semibold transition-all"
           >
             💰 Shared Expenses
           </a>
@@ -169,16 +220,25 @@ import { AuthModalComponent } from '../../features/auth/auth-modal.component';
             routerLink="/respite" 
             (click)="closeMobileMenu()"
             routerLinkActive="bg-companion/10 text-companion font-bold border-companion/30"
-            class="block tap-target px-4 py-3 rounded-xl border border-transparent text-ink/80 hover:text-ink text-base font-semibold transition-all"
+            class="block tap-target px-4 py-2.5 rounded-xl border border-transparent text-ink/80 hover:text-ink text-sm font-semibold transition-all"
           >
             🤝 Respite Board
+          </a>
+
+          <a 
+            routerLink="/wisdom" 
+            (click)="closeMobileMenu()"
+            routerLinkActive="bg-companion/10 text-companion font-bold border-companion/30"
+            class="block tap-target px-4 py-2.5 rounded-xl border border-transparent text-ink/80 hover:text-ink text-sm font-semibold transition-all"
+          >
+            📖 Shared Wisdom
           </a>
 
           <a 
             routerLink="/diagnostics" 
             (click)="closeMobileMenu()"
             routerLinkActive="bg-companion/10 text-companion font-bold border-companion/30"
-            class="block tap-target px-4 py-3 rounded-xl border border-transparent text-ink/80 hover:text-ink text-base font-semibold transition-all"
+            class="block tap-target px-4 py-2.5 rounded-xl border border-transparent text-ink/80 hover:text-ink text-sm font-semibold transition-all"
           >
             🏥 Diagnostic Directory
           </a>
@@ -187,7 +247,7 @@ import { AuthModalComponent } from '../../features/auth/auth-modal.component';
             routerLink="/helplines" 
             (click)="closeMobileMenu()"
             routerLinkActive="bg-companion/10 text-companion font-bold border-companion/30"
-            class="block tap-target px-4 py-3 rounded-xl border border-transparent text-ink/80 hover:text-ink text-base font-semibold transition-all"
+            class="block tap-target px-4 py-2.5 rounded-xl border border-transparent text-ink/80 hover:text-ink text-sm font-semibold transition-all"
           >
             📞 Helplines
           </a>
@@ -196,7 +256,7 @@ import { AuthModalComponent } from '../../features/auth/auth-modal.component';
             routerLink="/gratitude" 
             (click)="closeMobileMenu()"
             routerLinkActive="bg-companion/10 text-companion font-bold border-companion/30"
-            class="block tap-target px-4 py-3 rounded-xl border border-transparent text-ink/80 hover:text-ink text-base font-semibold transition-all"
+            class="block tap-target px-4 py-2.5 rounded-xl border border-transparent text-ink/80 hover:text-ink text-sm font-semibold transition-all"
           >
             ✍️ Private Gratitude
           </a>
@@ -205,7 +265,7 @@ import { AuthModalComponent } from '../../features/auth/auth-modal.component';
             routerLink="/settings" 
             (click)="closeMobileMenu()"
             routerLinkActive="bg-companion/10 text-companion font-bold border-companion/30"
-            class="block tap-target px-4 py-3 rounded-xl border border-transparent text-ink/80 hover:text-ink text-base font-semibold transition-all"
+            class="block tap-target px-4 py-2.5 rounded-xl border border-transparent text-ink/80 hover:text-ink text-sm font-semibold transition-all"
           >
             🔔 Reminders & Settings
           </a>

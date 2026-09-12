@@ -175,6 +175,54 @@ sequenceDiagram
 
 ---
 
+### 5. Bedside Care Routine & Turning Schedule Flow (v0.4)
+
+<details>
+<summary><b>View Mermaid Source</b></summary>
+
+```mermaid
+sequenceDiagram
+    autonumber
+    actor Caregiver as Family / Attendant on Duty
+    participant UI as RoutineViewComponent
+    participant Service as RoutineService (Angular Signal)
+    participant DB as Supabase PostgreSQL (care_routine_logs)
+
+    Caregiver->>UI: Tap "Quick Turn" (e.g. Right Lateral)
+    UI->>Service: turnPatient('Right Lateral', 'Sister Mary')
+    Service->>Service: Update currentPosition & lastTurnedAt Signals
+    Service->>DB: INSERT into care_routine_logs (activity_type='position_turn')
+    DB-->>Service: Confirm Insert
+    Service-->>UI: Update 2-hr Timer & Shift Handover Timeline
+```
+</details>
+
+---
+
+### 6. Supplies & Medical Equipment Tracking Flow (v0.4)
+
+<details>
+<summary><b>View Mermaid Source</b></summary>
+
+```mermaid
+sequenceDiagram
+    autonumber
+    actor Caregiver as Family Member
+    participant UI as SuppliesViewComponent
+    participant Service as SuppliesService (Angular Signal)
+    participant DB as Supabase PostgreSQL (care_supplies, equipment_rentals)
+
+    Caregiver->>UI: Tap stock counter (- / +) or Add Rental
+    UI->>Service: updateStock(supplyId, delta)
+    Service->>Service: Recompute lowStockSupplies Signal
+    Service->>DB: UPDATE quantity on care_supplies
+    DB-->>Service: Return Updated Record
+    Service-->>UI: Display Low-Stock Warning Badge if below threshold
+```
+</details>
+
+---
+
 ## 🖼️ Application Screenshots Gallery
 
 All feature screenshots are captured and saved in [docs/screenshots/](file:///Users/parvezkhan/Projects/AntigravityProjects/Rafeeq%20Elder%20Care/docs/screenshots/).

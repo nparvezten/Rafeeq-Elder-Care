@@ -1,6 +1,6 @@
 # Rafeeq Care (رفيق) — Family Eldercare Companion MVP
 
-**Open-source eldercare coordination app — attendant directory, shared expense tracker, respite coverage board, low-cost diagnostic search, helplines, & daily reflection journal. Angular 18+ & Supabase, self-hostable static app on GitHub Pages.**
+**Open-source eldercare coordination app — bedside care routine & turning schedule, supplies & rentals tracker, home rehab log, attendant directory, shared expense tracker, respite coverage board, low-cost diagnostic search, helplines, & daily reflection journal. Angular 18+ & Supabase, self-hostable static app on GitHub Pages.**
 
 > A companion, not a diagnosis. Rafeeq Care is a small, free, open-source tool that helps families coordinate home-visit care attendants, split care-related expenses, manage shift coverage, and support caregiver emotional well-being — built out of one family's experience caring for a parent through late-stage illness.
 
@@ -28,14 +28,17 @@
 
 ## 🌟 Key Application Features
 
-1. **📖 Shared Wisdom Carousel (`/#/wisdom`)**: Paraphrased reflection quotes across 5 human traditions (Islam, Christianity, Hinduism, Buddhism, Universal) with 7s autoplay, pause on hover/touch, and category chips.
-2. **👥 Attendant Directory (`/#/attendants`)**: Directory of vetted nurses, doctors, and home-visit attendants filterable by service type and area.
-3. **💰 Shared Expense Tracker (`/#/expenses`)**: Log care expenses with real-time automated arithmetic computing net balances ("who owes whom").
-4. **🤝 Respite Care Request Board (`/#/respite`)**: Coverage request board displaying open shifts first with a one-tap "Claim this" action, and claimed shifts below.
-5. **🏥 Low-Cost Diagnostic Directory (`/#/diagnostics`)**: Government, subsidized, and low-cost diagnostic center listings filterable by category and search.
-6. **📞 Helpline Directory (`/#/helplines`)**: Emergency contacts and hotlines filterable by scope (`national` | `international` | `local`), seeded with India Elder Line (`14567`) and crisis support lines.
-7. **✍️ Private Gratitude Reflection (`/#/gratitude`)**: Private family journal cycling 6 rotating daily prompts with date-based reflection history.
-8. **🔔 Web Push Notifications & Settings (`/#/settings`)**: Enable Web Push notifications backed by `public/sw.js` and Supabase Edge Function `send-reminder`.
+1. **🛏️ Bedside Routine & Shift Handoff (`/#/routine`)**: 2-hour patient turning schedule for bed sore prevention with 1-tap repositioning, daily bedside care checklist, and chronological shift handover activity timeline.
+2. **📦 Supplies & Equipment Rentals (`/#/supplies`)**: Consumables inventory (adult diapers, underpads, wet wipes, gloves) with low-stock alerts, and rental tracker for alpha ripple air beds, hospital beds, and wheelchairs with direct vendor calling.
+3. **🏃‍♂️ Home Rehab & Therapy Log (`/#/rehab`)**: Coordinate visiting physiotherapists, speech therapists, and visiting nurses with visit fees, schedule tracking, and session exercise logs.
+4. **👥 Attendant Directory (`/#/attendants`)**: Directory of vetted nurses, doctors, and home-visit attendants filterable by service type and area.
+5. **💰 Shared Expense Tracker (`/#/expenses`)**: Log care expenses with real-time automated arithmetic computing net balances ("who owes whom").
+6. **🤝 Respite Care Request Board (`/#/respite`)**: Coverage request board displaying open shifts first with a one-tap "Claim this" action, and claimed shifts below.
+7. **📖 Shared Wisdom Carousel (`/#/wisdom`)**: Paraphrased reflection quotes across 5 human traditions (Islam, Christianity, Hinduism, Buddhism, Universal) with 7s autoplay, pause on hover/touch, and category chips.
+8. **🏥 Low-Cost Diagnostic Directory (`/#/diagnostics`)**: Government, subsidized, and low-cost diagnostic center listings filterable by category and search.
+9. **📞 Helpline Directory (`/#/helplines`)**: Emergency contacts and hotlines filterable by scope (`national` | `international` | `local`), seeded with India Elder Line (`14567`) and crisis support lines.
+10. **✍️ Private Gratitude Reflection (`/#/gratitude`)**: Private family journal cycling 6 rotating daily prompts with date-based reflection history.
+11. **🔔 Web Push Notifications & Settings (`/#/settings`)**: Enable Web Push notifications backed by `public/sw.js` and Supabase Edge Function `send-reminder`.
 
 ---
 
@@ -63,6 +66,7 @@ npm install
    - `supabase-schema.sql` (v0.1)
    - `supabase-schema-v0.2.sql` (v0.2)
    - `supabase-schema-v0.3.sql` (v0.3)
+   - `supabase-schema-v0.4.sql` (v0.4)
 3. Copy your Project URL and anon public key from Settings → API.
 
 ### 3. Configure environment
